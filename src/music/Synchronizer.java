@@ -4,17 +4,21 @@
  */
 package music;
 
+import java.awt.TextArea;
+
 public class Synchronizer {
     
     private boolean firstVoiceFlag;
     private boolean secondVoiceFlag;
     private boolean thirdVoiceFlag;
+    private TextArea textArea;
 
-    public Synchronizer(boolean firstVoiceFlag, boolean secondVoiceFlag, boolean thirdVoiceFlag) {
+    public Synchronizer(boolean firstVoiceFlag, boolean secondVoiceFlag, boolean thirdVoiceFlag, TextArea textArea) {
         super();
         this.firstVoiceFlag = firstVoiceFlag;
         this.secondVoiceFlag = secondVoiceFlag;
         this.thirdVoiceFlag = thirdVoiceFlag;
+        this.textArea = textArea;
     }
     
     public synchronized void singFirstVoice(String lyrics, int delay) {
@@ -55,8 +59,8 @@ public class Synchronizer {
     
     
     
-    private void sing(String lyrics, int delay) {
-        System.out.println(lyrics);
+    public void sing(String lyrics, int delay) {
+        textArea.append(lyrics +"\n");
         try {
             wait(delay);
         } catch (InterruptedException e) {
@@ -87,10 +91,8 @@ public class Synchronizer {
        	notifyAll();
        	return;
        }
-       
-       
-        
+         
     }
-
+    
 }
 

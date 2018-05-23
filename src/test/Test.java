@@ -4,6 +4,7 @@
  */
 package test;
 
+import java.awt.TextArea;
 import java.util.Scanner;
 
 import music.Performance;
@@ -19,7 +20,7 @@ public class Test {
     private Singer annieLennox;
     private Singer both;
     
-    private void initializeSingingInThreads() {
+    private void initializeSingingInThreads(TextArea textArea) {
         String lyrics1 = "It's the terror of knowing\nWhat the world is about\nWatching some good friends, screaming\n";
         String lyrics2 = "Let me out!\n";
         String lyrics3 = "Pray tomorrow gets me higher\n" +"...\n";
@@ -27,7 +28,7 @@ public class Test {
       
         
         boolean stopIt = false;
-        Synchronizer synch = new Synchronizer(true, false, false);
+        Synchronizer synch = new Synchronizer(true, false, false, textArea);
         
         Performance firstVoicePerformance = new Performance(lyrics1, 4500);
         Performance secondVoicePerformance = new Performance(lyrics2, 3500);
@@ -38,21 +39,22 @@ public class Test {
         annieLennox = new Singer("Bruce Springsteen", Voice.SECOND, thirdVoicePerformance, stopIt, synch);
     }
     
-    public void testSingInThreads() {
+    public void testSingInThreads(TextArea textArea) {
         
-        initializeSingingInThreads();
+        initializeSingingInThreads(textArea);
         
         davidBowie.start();
         both.start();
         annieLennox.start();
         
-        IN.nextLine();
-        davidBowie.setStopIt(true);
-        both.setStopIt(true);
-        annieLennox.setStopIt(true);
-        
     }
     
+
+    public synchronized void stopThreads() {
+    	davidBowie.setStopIt(true);
+        both.setStopIt(true);
+        annieLennox.setStopIt(true);
+    }    
   
 }
 
