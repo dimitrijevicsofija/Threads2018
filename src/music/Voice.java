@@ -6,6 +6,7 @@ package music;
 
 public enum Voice {
     FIRST,
+    BOTH,
     SECOND,
     BACKGROUND
 }
