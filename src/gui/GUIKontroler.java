@@ -33,8 +33,5 @@ public class GUIKontroler {
 			}
 		});
 	}
-	
-	public void callSingingInThread(TextArea text) {
-		test.testSingInThreads(text);
-	}
+
 }
